@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connection\NewConnection.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Interfaces\ICompanyRepository.cs" />

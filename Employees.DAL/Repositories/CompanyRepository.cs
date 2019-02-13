@@ -30,12 +30,12 @@ namespace Employees.DAL.Repositories
         public void Create(Company item)
         {
              string sql = string.Format("Insert Into [Company]" +
-                   "(Name, Size, Organizationalform) Values( @Name, @Size, @Organizationalform)");
+                   "(CompanyName, Size, Organizationalform) Values( @CompanyName, @Size, @Organizationalform)");
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {
                 // Добавить параметры
                
-                cmd.Parameters.AddWithValue("@Name", item.Name);
+                cmd.Parameters.AddWithValue("@CompanyName", item.CompanyName);
                 cmd.Parameters.AddWithValue("@Size", item.Size);
                 cmd.Parameters.AddWithValue("@Organizationalform", item.Organizationalform);
 
@@ -44,8 +44,8 @@ namespace Employees.DAL.Repositories
         }
         public void Update(Company item)
         {
-            string sql = string.Format("UPDATE [Company] SET Name = '{0}', Size = '{1}', OrganizationalForm = '{2}' WHERE Id = '{3}';",
-                item.Name,item.Size,item.Organizationalform,item.Id);
+            string sql = string.Format("UPDATE [Company] SET CompanyName = '{0}', Size = '{1}', OrganizationalForm = '{2}' WHERE Id = '{3}';",
+                item.CompanyName,item.Size,item.Organizationalform,item.Id);
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {
                 cmd.ExecuteNonQuery();
@@ -53,11 +53,17 @@ namespace Employees.DAL.Repositories
         }
         public void Delete (int id)
         {
+            string sql2 = string.Format("Delete from [Employee] where CompanyId = '{0}'", id);
+            using (SqlCommand cmd = new SqlCommand(sql2, connection))
+            {
+                cmd.ExecuteNonQuery();
+            }
             string sql = string.Format("Delete from [Company] where Id = '{0}'", id);
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {               
                 cmd.ExecuteNonQuery();               
             }
+            
         }
         public Company Get (int id)
         {
@@ -71,9 +77,9 @@ namespace Employees.DAL.Repositories
                 foreach (DataRow item in table.Rows)
                 {
                     company.Id = Int32.Parse(item["Id"].ToString());
-                    company.Size = Int32.Parse(dr["Size"].ToString());
-                    company.Name = dr["Name"].ToString();
-                    company.Organizationalform = dr["Organizationalform"].ToString();
+                    company.Size = Int32.Parse(item["Size"].ToString());
+                    company.CompanyName = item["CompanyName"].ToString();
+                    company.Organizationalform = item["Organizationalform"].ToString();
 
 
                 }
@@ -85,7 +91,7 @@ namespace Employees.DAL.Repositories
         {
             List<Company> list = new List<Company>();
             DataTable table = new DataTable();
-            Company company = new Company();
+            
             string sql = string.Format("Select * From [Company] ");
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {
@@ -93,10 +99,12 @@ namespace Employees.DAL.Repositories
                 table.Load(dr);
                 foreach (DataRow item in table.Rows)
                 {
-                    company.Id = Int32.Parse(item["Id"].ToString());
-                    company.Size = Int32.Parse(dr["Size"].ToString());
-                    company.Name = dr["Name"].ToString();
-                    company.Organizationalform = dr["Organizationalform"].ToString();
+                    Company company = new Company {
+                       Id = Int32.Parse(item["Id"].ToString()),
+                    Size = Int32.Parse(item["Size"].ToString()),
+                    CompanyName = item["CompanyName"].ToString(),
+                    Organizationalform = item["Organizationalform"].ToString()
+                };
 
                     list.Add(company);
                 }

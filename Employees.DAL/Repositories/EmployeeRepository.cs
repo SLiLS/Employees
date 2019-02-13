@@ -66,21 +66,21 @@ namespace Employees.DAL.Repositories
         {
             DataTable table = new DataTable();
             Employee employee = new Employee();
-            string sql = string.Format("SELECT Employee.Id,Employee.Name,Employee.SurName,Employee.MiddleName,Employee.Employmentdate,Employee.Position,Employee.CompanyId,Company.Name FROM Employee JOIN Company ON Employee.CompanyId = Company.Id Where Employee.Id = {0}", id);
+            string sql = string.Format("SELECT Employee.Id,Employee.Name,Employee.SurName,Employee.MiddleName,Employee.Employmentdate,Employee.Position,Employee.CompanyId,Company.CompanyName FROM Employee JOIN Company ON Employee.CompanyId = Company.Id Where Employee.Id = '{0}'", id);
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {
                 SqlDataReader dr = cmd.ExecuteReader();
                 table.Load(dr);
                 foreach (DataRow item in table.Rows)
                 {
-                    employee.Id = Int32.Parse(dr["Id"].ToString());
-                    employee.Name = dr["Name"].ToString();
-                    employee.Surname = dr["Surname"].ToString();
-                    employee.Middlename = dr["Middlename"].ToString();
-                    employee.Position = dr["Position"].ToString();
-                    employee.Companyname = dr["Company.Name"].ToString();
-                    employee.Employmentdate = Convert.ToDateTime(dr["Employmentdate"].ToString());
-
+                    employee.Id = Int32.Parse(item["Id"].ToString());
+                    employee.Name = item["Name"].ToString();
+                    employee.Surname = item["Surname"].ToString();
+                    employee.Middlename = item["Middlename"].ToString();
+                    employee.Position = item["Position"].ToString();
+                  
+                    employee.Employmentdate = Convert.ToDateTime(item["Employmentdate"].ToString());
+                    employee.Companyname = item["CompanyName"].ToString();
 
                 }
                 dr.Close();
@@ -91,22 +91,24 @@ namespace Employees.DAL.Repositories
         {
             List<Employee> list = new List<Employee>();
             DataTable table = new DataTable();
-            Employee employee = new Employee();
-            string sql = string.Format("SELECT Employee.Id,Employee.Name,Employee.SurName,Employee.MiddleName,Employee.Employmentdate,Employee.Position,Employee.CompanyId,Company.Name FROM Employee JOIN Company ON Employee.CompanyId = Company.Id ");
+            
+            string sql = string.Format("SELECT Employee.Id,Employee.Name,Employee.SurName,Employee.MiddleName,Employee.Employmentdate,Employee.Position,Employee.CompanyId,Company.CompanyName FROM Employee JOIN Company ON Employee.CompanyId = Company.Id ");
             using (SqlCommand cmd = new SqlCommand(sql, connection))
             {
                 SqlDataReader dr = cmd.ExecuteReader();
                 table.Load(dr);
                 foreach (DataRow item in table.Rows)
                 {
-                    employee.Id = Int32.Parse(dr["Id"].ToString());
-                    employee.Name = dr["Name"].ToString();
-                    employee.Surname = dr["Surname"].ToString();
-                    employee.Middlename = dr["Middlename"].ToString();
-                    employee.Position = dr["Position"].ToString();
-                    employee.Companyname = dr["Company.Name"].ToString();
-                    employee.Employmentdate = Convert.ToDateTime(dr["Employmentdate"].ToString());
+                    Employee employee = new Employee {
+                        Id = Int32.Parse(item["Id"].ToString()),
+                    Name = item["Name"].ToString(),
+                    Surname = item["Surname"].ToString(),
+                    Middlename = item["Middlename"].ToString(),
+                    Position = item["Position"].ToString(),
 
+                   Employmentdate = Convert.ToDateTime(item["Employmentdate"].ToString()),
+                    Companyname = item["CompanyName"].ToString()
+                };
                     list.Add(employee);
                 }
                 dr.Close();

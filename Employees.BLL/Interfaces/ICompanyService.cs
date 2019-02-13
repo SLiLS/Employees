@@ -9,8 +9,8 @@ namespace Employees.BLL.Interfaces
 {
    public  interface ICompanyService
     {
-        List<CompanyDTO> GetAllCompany();
-        CompanyDTO GetCompanyById(int Id);
+        List<CompanyDTO> GetAllCompanies();
+        CompanyDTO GetCompany(int Id);
         void UpdateCompany(CompanyDTO Company);
         void CreateCompany(CompanyDTO Company);
 

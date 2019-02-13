@@ -8,6 +8,9 @@ namespace Employees.BLL.DTO
 {
    public class CompanyDTO
     {
-
+        public int Id { get; set; }
+        public string CompanyName { get; set; }
+        public int Size { get; set; }
+        public string Organizationalform { get; set; }
     }
 }

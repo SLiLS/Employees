@@ -41,7 +41,7 @@ namespace Employees.BLL.Services
             employeeRepository.OpenConnection();
 
             List<EmployeeDTO> ListDTO = new List<EmployeeDTO>();
-            List<Employee> list = new List<Employee>();
+            List<Employee> list = employeeRepository.GetAll();
             foreach (Employee item in list)
             {
                 EmployeeDTO employeeDTO = new EmployeeDTO
@@ -65,15 +65,37 @@ namespace Employees.BLL.Services
         public EmployeeDTO GetEmployee(int Id)
         {
             employeeRepository.OpenConnection();
-            employeeRepository.Get(Id);
-
+         Employee item=   employeeRepository.Get(Id);           
             employeeRepository.CloseConnection();
+            EmployeeDTO employeeDTO = new EmployeeDTO
+            {
+                Id = item.Id,
+                CompanyId = item.CompanyId,
+                Companyname = item.Companyname,
+                Employmentdate = item.Employmentdate,
+                Middlename = item.Middlename,
+                Name = item.Name,
+                Position = item.Position,
+                Surname = item.Surname
+            };
+            return employeeDTO; 
         }
 
-        public void UpdateEmployee(EmployeeDTO Employee)
+        public void UpdateEmployee(EmployeeDTO item)
         {
             employeeRepository.OpenConnection();
-
+            Employee employee = new Employee
+            {
+                Id = item.Id,
+                CompanyId = item.CompanyId,
+                Companyname = item.Companyname,
+                Employmentdate = item.Employmentdate,
+                Middlename = item.Middlename,
+                Name = item.Name,
+                Position = item.Position,
+                Surname = item.Surname
+            };
+            employeeRepository.Update(employee);
 
             employeeRepository.CloseConnection();
         }
