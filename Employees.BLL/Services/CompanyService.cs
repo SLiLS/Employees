@@ -11,7 +11,7 @@ using Employees.DAL.Entities;
 
 namespace Employees.BLL.Services
 {
-   public class CompanyService : ICompanyService
+   public class CompanyService : ICompanyService //Сервис для работы с данными
     {
         private CompanyRepository companyRepository;
 

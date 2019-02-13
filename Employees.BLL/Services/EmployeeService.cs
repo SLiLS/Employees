@@ -10,7 +10,7 @@ using Employees.DAL.Entities;
 
 namespace Employees.BLL.Services
 {
-   public class EmployeeService : IEmployeeService
+   public class EmployeeService : IEmployeeService//сервис для работы с БД
     {
         private EmployeeRepository employeeRepository;
 
@@ -22,7 +22,7 @@ namespace Employees.BLL.Services
         public void CreateEmployee(EmployeeDTO item)
         {
             employeeRepository.OpenConnection();
-
+            
             Employee employee = new Employee { CompanyId = item.CompanyId, Companyname = item.Companyname, Employmentdate = item.Employmentdate,Middlename=item.Middlename,Name=item.Name,Position=item.Position,Surname=item.Surname };
             employeeRepository.Create(employee);
             employeeRepository.CloseConnection();

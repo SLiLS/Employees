@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Employees.DAL.Repositories
 {
-  public   class CompanyRepository : ICompanyRepository
+  public   class CompanyRepository : ICompanyRepository //реализация CRUD операций для компании
     {
        private string connectionString = @"Data Source=SLILSY\SQLEXPRESS;Initial Catalog=Task;Integrated Security=True";
         private SqlConnection connection = null;

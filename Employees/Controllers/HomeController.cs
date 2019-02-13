@@ -13,7 +13,7 @@ namespace Employees.Controllers
     {
         CompanyService companyService;
         EmployeeService employeeService;
-        public HomeController()
+        public HomeController()//создание экземпляров сервисов для работы с бд 
         {
             if (companyService == null)
                 companyService = new CompanyService();
@@ -21,7 +21,7 @@ namespace Employees.Controllers
                 employeeService = new EmployeeService();
         }
       
-        public ActionResult Index()
+        public ActionResult Index()//Вывод на экран сотрудников
         {
             List<EmployeeDTO> listdto = employeeService.GetAllEmployee();
             List<EmployeesViewModel> list = new List<EmployeesViewModel>();
@@ -52,7 +52,7 @@ namespace Employees.Controllers
 
         }
         [HttpPost]
-        public ActionResult AddEmployee(EmployeesViewModel item)
+        public ActionResult AddEmployee(EmployeesViewModel item)//Добавление сотрудника
         {
 
             if (ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace Employees.Controllers
             return PartialView(employeesView);
         }
         [HttpPost]
-        public ActionResult Edit(EmployeesViewModel item)
+        public ActionResult Edit(EmployeesViewModel item)//Редактирование сотрудника
         {
             EmployeeDTO employeeDTO = new EmployeeDTO
             {
@@ -121,7 +121,7 @@ namespace Employees.Controllers
 
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id)//Удаление работника
         {
             employeeService.DeleteEmployee(id);
             return RedirectToAction("Index");

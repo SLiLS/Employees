@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Employees.DAL.Entities
 {
-   public class Company
+   public class Company//Модель компании
     {
         public int Id { get; set; }
         public string CompanyName { get; set; }

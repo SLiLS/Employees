@@ -13,15 +13,15 @@ namespace Employees.Controllers
     {
         CompanyService companyService;
         EmployeeService employeeService;
-        public CompaniesController()
+        public CompaniesController()//создание экземпляров сервисов для работы с бд 
         {
             if (companyService == null)
                 companyService = new CompanyService();
             if (employeeService == null)
                 employeeService = new EmployeeService();
         }
-            // GET: Companies
-            public ActionResult Index()
+          
+            public ActionResult Index()//Вывод компаний
         {
             List<CompaniesViewModel> list = MapCompanylist(companyService.GetAllCompanies());
             return View(list);
@@ -34,7 +34,7 @@ namespace Employees.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(CompaniesViewModel item)
+        public ActionResult Create(CompaniesViewModel item)//Создание компании
         {
 
             if (ModelState.IsValid)
@@ -62,7 +62,7 @@ namespace Employees.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id)//Редактирование компании
         {
             CompanyDTO item = companyService.GetCompany(id);
             CompaniesViewModel company = new CompaniesViewModel
@@ -90,7 +90,7 @@ namespace Employees.Controllers
 
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id)//Удаление компании
         {
             companyService.DeleteCompany(id);
             return RedirectToAction("Index");

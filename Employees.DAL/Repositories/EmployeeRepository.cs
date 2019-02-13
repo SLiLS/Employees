@@ -11,7 +11,7 @@ using System.Data;
 
 namespace Employees.DAL.Repositories
 {
-  public  class EmployeeRepository : IEmployeeRepository
+  public  class EmployeeRepository : IEmployeeRepository // Реализаций CRUD операция для сотрудников
     {
         private string connectionString = @"Data Source=SLILSY\SQLEXPRESS;Initial Catalog=Task;Integrated Security=True";
         private SqlConnection connection = null;
@@ -44,6 +44,7 @@ namespace Employees.DAL.Repositories
 
                 cmd.ExecuteNonQuery();
             }
+           
         }
         public void Update(Employee item)
         {

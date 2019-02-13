@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Employees.DAL.Interfaces
 {
-  public  interface IRepository<T> where T:class
+  public  interface IRepository<T> where T:class// Репозиторий для доступа CRUD операций с данными
     {
         List<T> GetAll();
         T Get(int id);
